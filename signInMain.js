@@ -14,6 +14,8 @@ formEl.addEventListener('submit', event => {
         return;
     }
 
+    checkForDup();
+
     const payload = new FormData(formEl);
     console.log([...payload]);
 
@@ -38,3 +40,27 @@ formEl.addEventListener('submit', event => {
 
     window.location.href = 'https://sss4224.github.io/loggInnAPI/index.html';
 })
+
+async function checkForDup(){
+    try {
+        
+        const response = await fetch('https://675aee2c9ce247eb19351651.mockapi.io/API/v1/users');
+        if(!response.ok){
+            throw new Error('Could not find/connect to the server');
+        }
+
+        const data = await response.json();
+
+        const user = data.find(item => {
+            return item.email === emailEl.value
+        })
+
+        if(user){
+            alert('This email is already used');
+            throw new Error('This email is allrady in use');
+        }
+
+    } catch (error) {
+        console.log('Error: ', error.stack);
+    }
+}
