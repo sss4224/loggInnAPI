@@ -54,14 +54,14 @@ async function checkForDup(){
 
         const data = await response.json();
 
-        const user = data.find(item => {
-            return item.email === emailEl.value
-        })
+        const user = data.find(item => item.email === emailEl.value)
 
         if(user){
             alert('This email is already used');
-            throw new Error('This email is allrady in use');
+            return false;
         }
+
+        return true;
 
     } catch (error) {
         console.log('Error: ', error.stack);
