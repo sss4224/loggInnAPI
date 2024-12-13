@@ -13,33 +13,34 @@ formEl.addEventListener('submit', event => {
         formEl.reset();
         return;
     }
-
-    checkForDup();
-
-    const payload = new FormData(formEl);
-    console.log([...payload]);
-
-    payload.forEach((value, key) => {
-        payload[key] = value;
-    })
-
-
-    fetch('https://675aee2c9ce247eb19351651.mockapi.io/API/v1/users', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-    })
-    .then(response => response.json())
-    .then(data => {
-        const userData = {user: data};
-        console.log(userData);
-    })
-    .catch(error => console.error(error));
-
-    window.location.href = 'https://sss4224.github.io/loggInnAPI/index.html';
+    
+    if(checkForDup()){   
+        const payload = new FormData(formEl);
+        console.log([...payload]);
+    
+        payload.forEach((value, key) => {
+            payload[key] = value;
+        })
+    
+    
+        fetch('https://675aee2c9ce247eb19351651.mockapi.io/API/v1/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            const userData = {user: data};
+            console.log(userData);
+        })
+        .catch(error => console.error(error));
+    
+        window.location.href = 'https://sss4224.github.io/loggInnAPI/index.html';
+    }
 })
+
 
 async function checkForDup(){
     try {
@@ -62,5 +63,6 @@ async function checkForDup(){
 
     } catch (error) {
         console.log('Error: ', error.stack);
+        return false;
     }
 }
