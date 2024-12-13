@@ -37,10 +37,11 @@ async function fetchLogInn(){
 
         //Hvis ikke email eller passord stemmer sender den error
         if(!user){
+            alert('Email or password was incorrect');
             throw new Error('Email or password was incorrect');
         }
         //Hvis alt stemmer sender den ut name fra samme JSON object som email og passord matcher
-        console.log(`${user.username} is now logged inn`);
+        alert(`${user.username} is now logged inn`);
 
     //Hvis det kommer noen errorer kommer du rett til catch    
     } catch (error) {
