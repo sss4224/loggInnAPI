@@ -14,57 +14,27 @@ formEl.addEventListener('submit', async event => {
         return;
     }
 
-    const isUnique = await checkForDup();
+    const payload = new FormData(formEl);
+    console.log([...payload]);
 
-    if(isUnique){   
-        const payload = new FormData(formEl);
-        console.log([...payload]);
-    
-        payload.forEach((value, key) => {
-            payload[key] = value;
-        })
-    
-    
-        fetch('https://675aee2c9ce247eb19351651.mockapi.io/API/v1/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(response => response.json())
-        .then(data => {
-            const userData = {user: data};
-            console.log(userData);
-        })
-        .catch(error => console.error(error));
-    
-        window.location.href = 'https://sss4224.github.io/loggInnAPI/index.html';
-    }
+    payload.forEach((value, key) => {
+        payload[key] = value;
+    })
+
+
+    fetch('https://675aee2c9ce247eb19351651.mockapi.io/API/v1/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+        const userData = {user: data};
+        console.log(userData);
+    })
+    .catch(error => console.error(error));
+
+    window.location.href = 'https://sss4224.github.io/loggInnAPI/index.html';
 })
-
-
-async function checkForDup(){
-    try {
-        
-        const response = await fetch('https://675aee2c9ce247eb19351651.mockapi.io/API/v1/users');
-        if(!response.ok){
-            throw new Error('Could not find/connect to the server');
-        }
-
-        const data = await response.json();
-
-        const user = data.find(item => item.email === emailEl.value)
-
-        if(user){
-            alert('This email is already used');
-            return false;
-        }
-
-        return true;
-
-    } catch (error) {
-        console.log('Error: ', error.stack);
-        return false;
-    }
-}
