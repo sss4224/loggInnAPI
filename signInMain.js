@@ -6,15 +6,17 @@ const repeatPasswordEl = document.getElementById('repeatPassword');
 
 const formEl = document.querySelector('.form');
 
-formEl.addEventListener('submit', event => {
+formEl.addEventListener('submit', async event => {
     event.preventDefault();
     if(passwordEl.value !== repeatPasswordEl.value){
         alert('Passwords are not matching');
         formEl.reset();
         return;
     }
-    
-    if(checkForDup()){   
+
+    const isUnique = await checkForDup();
+
+    if(isUnique){   
         const payload = new FormData(formEl);
         console.log([...payload]);
     
