@@ -35,4 +35,6 @@ formEl.addEventListener('submit', event => {
         console.log(userData);
     })
     .catch(error => console.error(error));
+
+    window.location.href = 'index.html';
 })
