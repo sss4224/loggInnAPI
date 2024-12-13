@@ -36,5 +36,5 @@ formEl.addEventListener('submit', event => {
     })
     .catch(error => console.error(error));
 
-    Window.location.href = 'index.html';
+    window.location.href = 'https://sss4224.github.io/loggInnAPI/index.html';
 })
